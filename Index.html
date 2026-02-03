@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atelier Woodcraft</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f0f0f;
+      --card:#161616;
+      --gold:#c9a24d;
+      --text:#eaeaea;
+      --muted:#9a9a9a;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Inter',sans-serif;
+    }
+    header{
+      padding:60px 8%;
+      text-align:center;
+    }
+    header h1{
+      font-family:'Playfair Display',serif;
+      font-size:52px;
+      letter-spacing:1px;
+      margin:0;
+    }
+    header p{
+      color:var(--muted);
+      max-width:720px;
+      margin:20px auto 0;
+      font-size:16px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:30px;
+      padding:40px 8% 80px;
+    }
+    .card{
+      background:var(--card);
+      border-radius:18px;
+      padding:18px;
+      cursor:grab;
+      box-shadow:0 20px 40px rgba(0,0,0,.45);
+      transition:.35s ease;
+    }
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 30px 60px rgba(0,0,0,.65);
+    }
+    .card img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      border-radius:14px;
+      margin-bottom:16px;
+    }
+    .card h3{
+      font-family:'Playfair Display',serif;
+      font-size:20px;
+      margin:0 0 8px;
+    }
+    .card p{
+      color:var(--muted);
+      font-size:14px;
+      margin:0 0 14px;
+    }
+    .price{
+      font-size:18px;
+      font-weight:500;
+      color:var(--gold);
+    }
+    footer{
+      padding:40px 8%;
+      text-align:center;
+      color:var(--muted);
+      border-top:1px solid #222;
+    }
+  </style>
+</head>
+<body><header>
+  <h1>Atelier Woodcraft</h1>
+  <p>Luxury wooden decor handcrafted with timeless design, natural materials, and global aesthetics — curated for refined modern homes.</p>
+</header><section class="grid" id="productGrid">  <div class="card" draggable="true">
+    <img src="images/hanging-light.jpg" alt="Hanging Wooden Light">
+    <h3>Hanging Wooden Light</h3>
+    <p>Minimal sculpted wood with warm ambient lighting.</p>
+    <div class="price">₹2,000</div>
+  </div>  <div class="card" draggable="true">
+    <img src="images/table-clock.jpg" alt="Wooden Table Clock">
+    <h3>Wooden Table Clock</h3>
+    <p>Elegant desk clock crafted from premium hardwood.</p>
+    <div class="price">₹1,000</div>
+  </div>  <div class="card" draggable="true">
+    <img src="images/wall-clock.jpg" alt="Wooden Glass Wall Clock">
+    <h3>Wood & Glass Wall Clock</h3>
+    <p>Modern transparency with organic warmth.</p>
+    <div class="price">₹1,200</div>
+  </div>  <div class="card" draggable="true">
+    <img src="images/wall-decor.jpg" alt="Wall Decor">
+    <h3>Wall Decor Sculptures</h3>
+    <p>Hand-finished statement wall decor pieces.</p>
+    <div class="price">₹349 / piece</div>
+  </div>  <div class="card" draggable="true">
+    <img src="images/bluetooth-speaker.jpg" alt="Wooden Bluetooth Speaker">
+    <h3>Mini Wooden Bluetooth Speaker</h3>
+    <p>Pure sound wrapped in natural wood.</p>
+    <div class="price">₹2,000</div>
+  </div>  <div class="card" draggable="true">
+    <img src="images/spoon-stand.jpg" alt="Spoon & Tissue Stand">
+    <h3>Spoon & Tissue Paper Stand</h3>
+    <p>Luxury dining essentials with brass accents.</p>
+    <div class="price">₹2,499 / set</div>
+  </div>  <div class="card" draggable="true">
+    <img src="images/honeycomb-tray.jpg" alt="Honeycomb Tray">
+    <h3>Honeycomb Wooden Tray</h3>
+    <p>Geometric elegance for serving & decor.</p>
+    <div class="price">₹500 / piece</div>
+  </div>  <div class="card" draggable="true">
+    <img src="images/resin-coasters.jpg" alt="Resin Coasters">
+    <h3>Resin Tea Cup Coasters & Rack</h3>
+    <p>Luxury resin & wood fusion artistry.</p>
+    <div class="price">₹2,500 / set</div>
+  </div></section><footer>
+  © 2026 Atelier Woodcraft · Designed for Luxury Living
+</footer><script>
+  const grid = document.getElementById('productGrid');
+  let dragged;
+
+  document.addEventListener('dragstart', e => {
+    dragged = e.target;
+    e.target.style.opacity = .5;
+  });
+
+  document.addEventListener('dragend', e => {
+    e.target.style.opacity = '';
+  });
+
+  document.addEventListener('dragover', e => e.preventDefault());
+
+  document.addEventListener('drop', e => {
+    e.preventDefault();
+    if (e.target.classList.contains('card') && e.target !== dragged) {
+      const nodes = [...grid.children];
+      const draggedIndex = nodes.indexOf(dragged);
+      const targetIndex = nodes.indexOf(e.target);
+      grid.insertBefore(dragged, draggedIndex > targetIndex ? e.target : e.target.nextSibling);
+    }
+  });
+</script></body>
+</html>
